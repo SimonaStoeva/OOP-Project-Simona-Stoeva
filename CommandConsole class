@@ -1,0 +1,62 @@
+package oop.project.f22621604;
+import java.io.*;
+public class CommandConsole {
+    private String currFile = null;
+    private StringBuilder contentFile = new StringBuilder();
+
+    public String getCurrFile() {
+        return currFile;
+    }
+
+    public void setCurrFile(String currFile) {
+        this.currFile = currFile;
+    }
+
+    public StringBuilder getContentFile() {
+        return contentFile;
+    }
+
+    public void setContentFile(StringBuilder contentFile) {
+        this.contentFile = contentFile;
+    }
+
+    public void openFile(String filename) {
+        try (BufferedReader read = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = read.readLine()) != null) {
+                contentFile.append(line).append("\n");
+            }
+            currFile = filename;
+            System.out.println("Successfully opened " + filename);
+        } catch (IOException e) {
+            System.out.println("Unable to open file.");
+        }
+    }
+
+    public void closeFile() {
+        if (currFile != null) {
+            contentFile.setLength(0);
+            System.out.println("Successfully closed " + currFile);
+            currFile = null;
+        }
+    }
+
+    public void saveFileAs(String filename) {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(filename)))) {
+            writer.print(contentFile.toString());
+            System.out.println("Successfully saved " + filename);
+        } catch (IOException e) {
+            System.out.println("Unable to save file.");
+        }
+    }
+
+    public void printHelp() {
+        System.out.println("Commands: ");
+        System.out.println("open 'filename': opens a file");
+        System.out.println("close: closes the current file.");
+        System.out.println("save: saves changes made on the current file.");
+        System.out.println("saveas 'filename': saves changes made on a new file");
+        System.out.println("help: opens up this information.");
+        System.out.println("exit: exits the program.");
+    }
+}
