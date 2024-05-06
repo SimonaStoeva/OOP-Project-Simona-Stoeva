@@ -15,7 +15,7 @@ public class CircleRegion implements Region {
     @Override
     public boolean checkRectangle(int otherX, int otherY, int otherWidth, int otherHeight) {
         int distanceX=Math.abs(cx-(otherX+otherWidth/2));
-        int distanceY=Math.abs(cy-(otherY+otherWidth/2));
+        int distanceY = Math.abs(cy-(otherY+otherHeight / 2));
 
         if(distanceX>(otherWidth/2+radius)){
             return false;
